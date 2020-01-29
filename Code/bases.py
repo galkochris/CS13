@@ -22,7 +22,66 @@ def decode(digits, base):
     # TODO: Decode digits from hexadecimal (base 16)
     # ...
     # TODO: Decode digits from any base (2 up to 36)
-    # ...
+    #number x base to power of index if -1 sort of string
+    for i in digits[::-]:
+        i*(base**[i])
+
+
+def conv_help(val):
+    num = 0
+    if val is 'A':
+        num = 10
+    if val is 'B':
+        num = 11
+    if val is 'C':
+        num = 12
+    if val is 'D':
+        num = 13
+    if val is 'E':
+        num = 14
+    if val is 'F':
+        num = 15
+    if val is 'G':
+        num = 16
+    if val is 'H':
+        num = 17
+    if val is 'I':
+        num = 18
+    if val is 'J':
+        num = 19
+    if val is 'K':
+        num = 20
+    if val is 'L':
+        num = 21
+    if val is 'M':
+        num = 22
+    if val is 'N':
+        num = 23
+    if val is 'O':
+        num = 24
+    if val is 'P':
+        num = 25
+    if val is 'Q':
+        num = 26
+    if val is 'R':
+        num = 27
+    if val is 'S':
+        num = 28
+    if val is 'T':
+        num = 29
+    if val is 'U':
+        num = 30
+    if val is 'V':
+        num = 31
+    if val is 'W':
+        num = 32
+    if val is 'X':
+        num = 33
+    if val is 'Y':
+        num = 34
+    if val is 'Z':
+        num = 35
+    return num
 
 
 def encode(number, base):
