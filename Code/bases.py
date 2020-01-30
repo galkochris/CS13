@@ -23,7 +23,7 @@ def decode(digits, base):
     # ...
     # TODO: Decode digits from any base (2 up to 36)
     #number x base to power of index if -1 sort of string
-    for i in digits[::-]:
+    for i in digits[::-1]:
         i*(base**[i])
 
 
