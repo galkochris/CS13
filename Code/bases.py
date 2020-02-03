@@ -32,7 +32,8 @@ def decode(digits, base):
 #conv_help could also be:
 def conv_help(val):
     if val in string.ascii_lowercase or string.ascii_uppercase:
-        val = 10 + index of string.ascii.index(val)
+        val = 10 + string.ascii.index(val)
+        return val
 
 # def conv_help(val):
 #     num = 0
