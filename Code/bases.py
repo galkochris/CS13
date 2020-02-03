@@ -150,7 +150,8 @@ def convert(digits, base1, base2):
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
     # ...
     # TODO: Convert digits from any base to any base (2 up to 36)
-
+    val = decode(digits, base1)
+    encode(val, base2)
 
 
 def main():
