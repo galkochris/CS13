@@ -18,14 +18,20 @@ def decode(digits, base):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # TODO: Decode digits from binary (base 2)
-    # ...
     # TODO: Decode digits from hexadecimal (base 16)
-    # ...
     # TODO: Decode digits from any base (2 up to 36)
     #number x base to power of index if -1 sort of string
     for i in digits[::-1]:
-        i*(base**[i])
+        if i not in string.digits:
+            i = conv_help(i)
+        convert = i*(base**(digits.index(i)))
+        return convert
 
+
+
+#conv_help could also be:
+#if val in string.ascii_lowercase or string.ascii_uppercase:
+#   val = 10 + index of string.ascii.index(val)
 
 def conv_help(val):
     num = 0
@@ -98,7 +104,11 @@ def encode(number, base):
     # TODO: Encode number in hexadecimal (base 16)
     # ...
     # TODO: Encode number in any base (2 up to 36)
-    # ...
+    for i in number[::-1]:
+        if i not in string.digits:
+            i = conv_help(i)
+        convert = i*(base**(number.index(i)))
+        return convert
 
 
 def convert(digits, base1, base2):
@@ -117,7 +127,11 @@ def convert(digits, base1, base2):
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
     # ...
     # TODO: Convert digits from any base to any base (2 up to 36)
-    # ...
+    for i in number[::-1]:
+        if i not in string.digits:
+            i = conv_help(i)
+        convert = i*(base**(number.index(i)))
+        return convert
 
 
 def main():

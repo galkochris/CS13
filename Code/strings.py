@@ -13,6 +13,19 @@ def find_index(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement find_index here (iteratively and/or recursively)
+    for start, offset in zip(text, pattern):
+        if start == offset:
+            index = start
+            for start, offset in zip(text, pattern):
+                if start !== offset:
+                    break
+                else:
+                    return index
+        else:
+            break
+
+
+
 
 
 def find_all_indexes(text, pattern):
