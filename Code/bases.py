@@ -17,9 +17,9 @@ def decode(digits, base):
     return: int -- integer representation of number (in base 10)"""
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
-    # TODO: Decode digits from binary (base 2)
-    # TODO: Decode digits from hexadecimal (base 16)
-    # TODO: Decode digits from any base (2 up to 36)
+    # ALL: Decode digits from binary (base 2)
+    # IN: Decode digits from hexadecimal (base 16)
+    # ONE: Decode digits from any base (2 up to 36)
     #number x base to power of index if -1 sort of string
     for i in digits[::-1]:
         if i not in string.digits:
@@ -30,64 +30,65 @@ def decode(digits, base):
 
 
 #conv_help could also be:
-#if val in string.ascii_lowercase or string.ascii_uppercase:
-#   val = 10 + index of string.ascii.index(val)
-
 def conv_help(val):
-    num = 0
-    if val is 'A':
-        num = 10
-    if val is 'B':
-        num = 11
-    if val is 'C':
-        num = 12
-    if val is 'D':
-        num = 13
-    if val is 'E':
-        num = 14
-    if val is 'F':
-        num = 15
-    if val is 'G':
-        num = 16
-    if val is 'H':
-        num = 17
-    if val is 'I':
-        num = 18
-    if val is 'J':
-        num = 19
-    if val is 'K':
-        num = 20
-    if val is 'L':
-        num = 21
-    if val is 'M':
-        num = 22
-    if val is 'N':
-        num = 23
-    if val is 'O':
-        num = 24
-    if val is 'P':
-        num = 25
-    if val is 'Q':
-        num = 26
-    if val is 'R':
-        num = 27
-    if val is 'S':
-        num = 28
-    if val is 'T':
-        num = 29
-    if val is 'U':
-        num = 30
-    if val is 'V':
-        num = 31
-    if val is 'W':
-        num = 32
-    if val is 'X':
-        num = 33
-    if val is 'Y':
-        num = 34
-    if val is 'Z':
-        num = 35
-    return num
+    if val in string.ascii_lowercase or string.ascii_uppercase:
+        val = 10 + index of string.ascii.index(val)
+
+# def conv_help(val):
+#     num = 0
+#     if val is 'A':
+#         num = 10
+#     if val is 'B':
+#         num = 11
+#     if val is 'C':
+#         num = 12
+#     if val is 'D':
+#         num = 13
+#     if val is 'E':
+#         num = 14
+#     if val is 'F':
+#         num = 15
+#     if val is 'G':
+#         num = 16
+#     if val is 'H':
+#         num = 17
+#     if val is 'I':
+#         num = 18
+#     if val is 'J':
+#         num = 19
+#     if val is 'K':
+#         num = 20
+#     if val is 'L':
+#         num = 21
+#     if val is 'M':
+#         num = 22
+#     if val is 'N':
+#         num = 23
+#     if val is 'O':
+#         num = 24
+#     if val is 'P':
+#         num = 25
+#     if val is 'Q':
+#         num = 26
+#     if val is 'R':
+#         num = 27
+#     if val is 'S':
+#         num = 28
+#     if val is 'T':
+#         num = 29
+#     if val is 'U':
+#         num = 30
+#     if val is 'V':
+#         num = 31
+#     if val is 'W':
+#         num = 32
+#     if val is 'X':
+#         num = 33
+#     if val is 'Y':
+#         num = 34
+#     if val is 'Z':
+#         num = 35
+#     return num
 
 
 def encode(number, base):
@@ -99,16 +100,37 @@ def encode(number, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
-    # TODO: Encode number in binary (base 2)
-    # ...
-    # TODO: Encode number in hexadecimal (base 16)
-    # ...
-    # TODO: Encode number in any base (2 up to 36)
-    for i in number[::-1]:
-        if i not in string.digits:
-            i = conv_help(i)
-        convert = i*(base**(number.index(i)))
-        return convert
+    # ALL: Encode number in binary (base 2)
+    # IN: Encode number in hexadecimal (base 16)
+        # 5 = '0101'
+        # 8 = '1000'
+        # 16 = '0001 0000'
+        # base converts to 10 for every case
+    # ONE: Encode number in any base (2 up to 36)
+
+    """
+    in all cases the base returns 10, so that statement exists to  break before the loop, else the for loop checks the number from left to right, converting and value above
+    or equal to the base into the base values
+
+    """
+        if number = base:
+            return '10'
+        else:
+            while number > 0:
+                new_number = ''
+                if number >= base:
+                    power = floor(log(base, number))
+                    new_number = str(power) + new_number
+                    number = number - base**power 
+                else:
+                    new_number = new_number + str(number)
+                return new_number
+
+    # for i in number[::-1]:
+    #     if i not in string.digits:
+    #         i = conv_help(i)
+    #     convert = i*(base**(number.index(i))) + convert
+    #     return convert
 
 
 def convert(digits, base1, base2):
@@ -127,11 +149,7 @@ def convert(digits, base1, base2):
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
     # ...
     # TODO: Convert digits from any base to any base (2 up to 36)
-    for i in number[::-1]:
-        if i not in string.digits:
-            i = conv_help(i)
-        convert = i*(base**(number.index(i)))
-        return convert
+
 
 
 def main():
