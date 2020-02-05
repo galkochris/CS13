@@ -1,4 +1,6 @@
 #!python
+import math
+
 
 def linear_search(array, item):
     """return the first index of item in array or None if item is not found"""
@@ -46,18 +48,23 @@ def binary_search_iterative(array, item):
     #Worse Case: O(log(n)); Item not in list, iterates over whole array
     #Average Case: ~O(log(n)/2); Generally takes log(n) but some items are middle indexes
     # TODO: implement binary search iteratively here
-    array.sort()
-    
-    index = (len(array) - 1)//2
-    while index < (len(array) - 1):
-        if array[index] == item:
-            return index
-        if array[index] > item:
-            index = index - index//2
-        if array[index] < item:
-            index = index + index//2
-        else:
-            return None
+    if array[0] == item:
+        return 0    
+    else:
+        low = 0
+        index = None
+        high = (len(array) - 1)
+        while low <= high:
+            index = (low + high)//2
+            if array[index] == item:
+                return index
+            elif array[index] > item:
+                high = index - 1
+            elif array[index] < item:
+                low = index + 1
+            else:
+                return None
+        return None
     # once implemented, change binary_search to call binary_search_iterative
     # to verify that your iterative implementation passes all tests
 
@@ -68,3 +75,9 @@ def binary_search_recursive(array, item, left=None, right=None):
     pass
     # once implemented, change binary_search to call binary_search_recursive
     # to verify that your recursive implementation passes all tests
+
+
+# if __name__ == '__main__':
+#     names = ['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie']
+#     # binary search should return the index of each item in the list
+#     print(binary_search(names, 'Nabil'))
