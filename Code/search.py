@@ -53,7 +53,13 @@ def binary_search_iterative(array, item):
     
     index = 0
     while index < (len(array) - 1):
-        if index 
+        index = (len(array) - 1)//2
+        if array[index] == item:
+            return index
+        if array[index] > item:
+            go left
+        else:
+            go right
     # once implemented, change binary_search to call binary_search_iterative
     # to verify that your iterative implementation passes all tests
 
