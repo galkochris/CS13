@@ -1,6 +1,8 @@
 #!python
 
 import string
+import math
+
 # Hint: Use these string constants to encode/decode hexadecimal digits and more
 # string.digits is '0123456789'
 # string.hexdigits is '0123456789abcdefABCDEF'
@@ -21,75 +23,30 @@ def decode(digits, base):
     # IN: Decode digits from hexadecimal (base 16)
     # ONE: Decode digits from any base (2 up to 36)
     #number x base to power of index if -1 sort of string
-    for i in digits[::-1]:
-        if i not in string.digits:
-            i = conv_help(i)
-        convert = i*(base**(digits.index(i)))
+    if base == 10:
+        return digits
+    else:
+        convert = 0
+        for i in digits[::-1]:
+            if i not in string.digits:
+                i = conv_help(i)
+            convert = convert + int(i)*int(base**(len(digits) - digits.index(i) - 1))
         return convert
 
 
 
 #conv_help could also be:
 def conv_help(val):
-    if val in string.ascii_lowercase or string.ascii_uppercase:
-        val = 10 + string.ascii.index(val)
+    if val in string.ascii_letters:
+        val = 10 + string.ascii_uppercase.index(val)
         return val
 
-# def conv_help(val):
-#     num = 0
-#     if val is 'A':
-#         num = 10
-#     if val is 'B':
-#         num = 11
-#     if val is 'C':
-#         num = 12
-#     if val is 'D':
-#         num = 13
-#     if val is 'E':
-#         num = 14
-#     if val is 'F':
-#         num = 15
-#     if val is 'G':
-#         num = 16
-#     if val is 'H':
-#         num = 17
-#     if val is 'I':
-#         num = 18
-#     if val is 'J':
-#         num = 19
-#     if val is 'K':
-#         num = 20
-#     if val is 'L':
-#         num = 21
-#     if val is 'M':
-#         num = 22
-#     if val is 'N':
-#         num = 23
-#     if val is 'O':
-#         num = 24
-#     if val is 'P':
-#         num = 25
-#     if val is 'Q':
-#         num = 26
-#     if val is 'R':
-#         num = 27
-#     if val is 'S':
-#         num = 28
-#     if val is 'T':
-#         num = 29
-#     if val is 'U':
-#         num = 30
-#     if val is 'V':
-#         num = 31
-#     if val is 'W':
-#         num = 32
-#     if val is 'X':
-#         num = 33
-#     if val is 'Y':
-#         num = 34
-#     if val is 'Z':
-#         num = 35
-#     return num
+def rev_help(num):
+    if num > 9:
+        num = num - 10
+        lett = string.ascii_uppercase[num]
+        return lett
+
 
 
 def encode(number, base):
@@ -114,18 +71,31 @@ def encode(number, base):
     or equal to the base into the base values
 
     """
-        if number = base:
-            return '10'
-        else:
-            while number > 0:
-                new_number = ''
-                if number >= base:
-                    power = floor(log(base, number))
-                    new_number = str(power) + new_number
-                    number = number - base**power 
+    new_number = ''
+    if base == 2:
+        while number > 0:
+            remainder = number % 2
+            number = math.floor(number / 2)
+            new_number = str(remainder) + str(new_number)
+        return new_number
+    if number == base:
+        return '10'
+    else:
+        while number > 0:
+            if number >= base:
+                power = (number//base)
+                if power > 9:
+                    rev_help(power)
+                new_number = str(power) + str(new_number)
+                number = number - base*power
+            else:
+                if number > 9:
+                    new_number = new_number + rev_help(number)
+                    return new_number
                 else:
                     new_number = new_number + str(number)
-                return new_number
+                    number = 0
+                    return new_number
 
     # for i in number[::-1]:
     #     if i not in string.digits:
@@ -143,15 +113,16 @@ def convert(digits, base1, base2):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
-    # TODO: Convert digits from base 2 to base 16 (and vice versa)
+    # All: Convert digits from base 2 to base 16 (and vice versa)
     # ...
-    # TODO: Convert digits from base 2 to base 10 (and vice versa)
+    # IN: Convert digits from base 2 to base 10 (and vice versa)
     # ...
-    # TODO: Convert digits from base 10 to base 16 (and vice versa)
+    # THE: Convert digits from base 10 to base 16 (and vice versa)
     # ...
-    # TODO: Convert digits from any base to any base (2 up to 36)
+    # LAST: Convert digits from any base to any base (2 up to 36)
     val = decode(digits, base1)
-    encode(val, base2)
+    new_val = encode(int(val), base2)
+    return new_val
 
 
 def main():
@@ -164,6 +135,7 @@ def main():
         base2 = int(args[2])
         # Convert given digits between bases
         result = convert(digits, base1, base2)
+        result = convert(14, 10, 16)
         print('{} in base {} is {} in base {}'.format(digits, base1, result, base2))
     else:
         print('Usage: {} digits base1 base2'.format(sys.argv[0]))
@@ -171,4 +143,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    print(convert("72", 10, 16))
+    print(convert("72", 10, 2))
+    print(convert("1000", 2, 16))
+    print(convert("1000", 2, 10))
