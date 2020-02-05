@@ -13,7 +13,7 @@ def factorial(n):
 
 
 def factorial_iterative(n):
-    # TODO: implement the factorial function iteratively here
+    # DONE: implement the factorial function iteratively here
     factorial = 1
     for num in range(1, n+1):
         factorial = factorial * num
