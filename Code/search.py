@@ -42,13 +42,24 @@ def binary_search(array, item):
 
 
 def binary_search_iterative(array, item):
+    #Best Case: O(1); Only takes the first step (item in middle of array)
+    #Worse Case: O(log(n)); Item not in list, iterates over whole array
+    #Average Case: ~O(log(n)/2); Generally takes log(n) but some items are middle indexes
     # TODO: implement binary search iteratively here
-    pass
+    array.sort()
+    for index, value in enumerate(array):
+        if item > value:
+            (len(array) - 1) / 2
+    
+    index = 0
+    while index < (len(array) - 1):
+        if index 
     # once implemented, change binary_search to call binary_search_iterative
     # to verify that your iterative implementation passes all tests
 
 
 def binary_search_recursive(array, item, left=None, right=None):
+    #Generally the same O notation as iterative, possibly slower the larger you get as stack gets larger
     # TODO: implement binary search recursively here
     pass
     # once implemented, change binary_search to call binary_search_recursive
