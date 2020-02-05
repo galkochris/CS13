@@ -47,19 +47,17 @@ def binary_search_iterative(array, item):
     #Average Case: ~O(log(n)/2); Generally takes log(n) but some items are middle indexes
     # TODO: implement binary search iteratively here
     array.sort()
-    for index, value in enumerate(array):
-        if item > value:
-            (len(array) - 1) / 2
     
-    index = 0
+    index = (len(array) - 1)//2
     while index < (len(array) - 1):
-        index = (len(array) - 1)//2
         if array[index] == item:
             return index
         if array[index] > item:
-            go left
+            index = index - index//2
+        if array[index] < item:
+            index = index + index//2
         else:
-            go right
+            return None
     # once implemented, change binary_search to call binary_search_iterative
     # to verify that your iterative implementation passes all tests
 
