@@ -17,7 +17,10 @@ def linear_search_iterative(array, item):
 
 
 def linear_search_recursive(array, item, index=0):
-    # TODO: implement linear search recursively here
+    #Best case: O(1); first item in array
+    #Worst case: O(n): item not in the array
+    #Average case: 0(n/2): average case would be half the length of the array
+    # DONE: implement linear search recursively here
     if index > (len(array) - 1):
         return
     
