@@ -17,6 +17,10 @@ def is_palindrome(text):
     return is_palindrome_recursive(text)
 
 def word_cleaner(text):
+    '''
+    takes a text string and removes unnecessary characters, allows for easy case
+    manipulation via lower or upper.
+    '''
     clean = ''
     for i in text:
         if i in string.ascii_letters:
@@ -44,6 +48,10 @@ def is_palindrome_recursive(text, left=None, right=None):
 
 
 def is_pal_recursive(text, left, right):
+    '''
+    helper function that allows the palidrome to execute recursively,
+    while initializing core elements (lowercasing the word).
+    '''
     if  len(text) <= left:
         return True
     else:
