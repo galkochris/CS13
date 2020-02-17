@@ -104,8 +104,10 @@ class ArrayQueue(object):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
         Running time: O(???) – Why? [TODO]"""
-        # TODO: Remove and return front item, if any
-        return self.front & self.list.pop(0)
+        # TODO: Remove and return front item, if any (pay attention to this)
+        self.front()
+
+        return self.front() and self.list.pop(0)
 
 
 

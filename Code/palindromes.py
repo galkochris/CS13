@@ -13,20 +13,44 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_iterative(text)
-    # return is_palindrome_recursive(text)
+    # return is_palindrome_iterative(text)
+    return is_palindrome_recursive(text)
 
+def word_cleaner(text):
+    clean = ''
+    for i in text:
+        if i in string.ascii_letters:
+            clean = clean + i
+    return clean
 
 def is_palindrome_iterative(text):
-    # TODO: implement the is_palindrome function iteratively here
-    pass
+    # Done: implement the is_palindrome function iteratively here
+    clean = word_cleaner(text)
+    reverse = ''
+    for letter in clean[:: -1]:
+            reverse = reverse + letter
+    if reverse.lower() == clean.lower():
+        return True
+    else:
+        return False
     # once implemented, change is_palindrome to call is_palindrome_iterative
     # to verify that your iterative implementation passes all tests
 
 
 def is_palindrome_recursive(text, left=None, right=None):
-    # TODO: implement the is_palindrome function recursively here
-    pass
+    # Done: implement the is_palindrome function recursively here
+    clean = word_cleaner(text).lower()
+    return is_pal_recursive(clean, 0, -1)
+
+
+def is_pal_recursive(text, left, right):
+    if  len(text) <= left :
+        return True
+    else:
+        if text[left] == text[right]:
+            return is_pal_recursive(text, left+1, right-1)
+        else:
+            return False
     # once implemented, change is_palindrome to call is_palindrome_recursive
     # to verify that your iterative implementation passes all tests
 
