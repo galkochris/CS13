@@ -11,6 +11,8 @@ import math
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
 # string.printable is digits + ascii_letters + punctuation + whitespace
 
+Mega_String = string.digits + string.ascii_lowercase
+decode_dictionary = {digit: val for val, digit in enumerate(Mega_String)}
 
 def decode(digits, base):
     """Decode given digits in given base to number in base 10.
@@ -23,29 +25,35 @@ def decode(digits, base):
     # IN: Decode digits from hexadecimal (base 16)
     # ONE: Decode digits from any base (2 up to 36)
     #number x base to power of index if -1 sort of string
-    if base == 10:
-        return digits
-    else:
-        convert = 0
-        for i in digits[::-1]:
-            if i not in string.digits:
-                i = conv_help(i)
-            convert = convert + int(i)*int(base**(len(digits) - digits.index(i) - 1))
-        return convert
+    decoded = 0
+    for index, digit in enumerate(reversed(digits)):
+        decoded += (base**index * decode_dictionary[digit])
+    return decoded
+
+
+    # if base == 10:
+    #     return digits
+    # else:
+    #     convert = 0
+    #     for i in digits[::-1]:
+    #         if i not in string.digits:
+    #             i = conv_help(i)
+    #         convert = convert + int(i)*int(base**(len(digits) - digits.index(i) - 1))
+    #     return convert
 
 
 
 #conv_help could also be:
-def conv_help(val):
-    if val in string.ascii_letters:
-        val = 10 + string.ascii_uppercase.index(val)
-        return val
+# def conv_help(val):
+#     if val in string.ascii_letters:
+#         val = 10 + string.ascii_uppercase.index(val)
+#         return val
 
-def rev_help(num):
-    if num > 9:
-        num = num - 10
-        lett = string.ascii_uppercase[num]
-        return lett
+# def rev_help(num):
+#     if num > 9:
+#         num = num - 10
+#         lett = string.ascii_uppercase[num]
+#         return lett
 
 
 
@@ -71,31 +79,39 @@ def encode(number, base):
     or equal to the base into the base values
 
     """
-    new_number = ''
-    if base == 2:
-        while number > 0:
-            remainder = number % 2
-            number = math.floor(number / 2)
-            new_number = str(remainder) + str(new_number)
-        return new_number
-    if number == base:
-        return '10'
-    else:
-        while number > 0:
-            if number >= base:
-                power = (number//base)
-                if power > 9:
-                    rev_help(power)
-                new_number = str(power) + str(new_number)
-                number = number - base*power
-            else:
-                if number > 9:
-                    new_number = new_number + rev_help(number)
-                    return new_number
-                else:
-                    new_number = new_number + str(number)
-                    number = 0
-                    return new_number
+
+
+    if number < base:
+        return Mega_String[number]
+
+    quot, remain = divmod(number, base)
+
+    return encode(quot, base) + Mega_String[remain]
+    # new_number = ''
+    # if base == 2:
+    #     while number > 0:
+    #         remainder = number % 2
+    #         number = math.floor(number / 2)
+    #         new_number = str(remainder) + str(new_number)
+    #     return new_number
+    # if number == base:
+    #     return '10'
+    # else:
+    #     while number > 0:
+    #         if number >= base:
+    #             power = (number//base)
+    #             if power > 9:
+    #                 rev_help(power)
+    #             new_number = str(power) + str(new_number)
+    #             number = number - base*power
+    #         else:
+    #             if number > 9:
+    #                 new_number = new_number + rev_help(number)
+    #                 return new_number
+    #             else:
+    #                 new_number = new_number + str(number)
+    #                 number = 0
+    #                 return new_number
 
     # for i in number[::-1]:
     #     if i not in string.digits:
