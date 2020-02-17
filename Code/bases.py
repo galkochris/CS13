@@ -10,7 +10,12 @@ import math
 # string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
 # string.printable is digits + ascii_letters + punctuation + whitespace
+'''
 
+Big thanks to my roommate Ben for helping me understand where in my code I went wrong and for showing me a 
+refactored version that would fix and overcome my decode/encode errors.
+
+'''
 Mega_String = string.digits + string.ascii_lowercase
 decode_dictionary = {digit: val for val, digit in enumerate(Mega_String)}
 
