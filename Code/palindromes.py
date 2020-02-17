@@ -44,7 +44,7 @@ def is_palindrome_recursive(text, left=None, right=None):
 
 
 def is_pal_recursive(text, left, right):
-    if  len(text) <= left :
+    if  len(text) <= left:
         return True
     else:
         if text[left] == text[right]:

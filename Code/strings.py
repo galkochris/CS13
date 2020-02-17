@@ -5,7 +5,7 @@ def contains(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement contains here (iteratively and/or recursively)
-
+    return find_index(text, pattern) != None
 
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
@@ -13,16 +13,27 @@ def find_index(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement find_index here (iteratively and/or recursively)
-    for start, offset in zip(text, pattern):
-        if start == offset:
-            index = start
-            for start, offset in zip(text, pattern):
-                if start !== offset:
-                    break
-                else:
+    if len(pattern) <= 0:
+        return 0
+    if len(text) <= 0 or len(pattern) > len(text):
+        return None
+    else:
+        offset = 0
+        first = pattern[0]
+        for index, start in enumerate(text):
+            if start == first:
+                if find_index_help(text, pattern, index, offset, index) == index:
                     return index
-        else:
-            break
+            
+
+def find_index_help(text, pattern, index, offset, start_index):
+    if offset >= len(pattern) -1:
+        return start_index
+    elif index >= len(text) -1:
+        return None
+    else:
+        if text[index+1] == pattern[offset+1]:
+            return find_index_help(text, pattern, index+1, offset+1, start_index)
 
 
 
@@ -34,6 +45,22 @@ def find_all_indexes(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement find_all_indexes here (iteratively and/or recursively)
+    if len(pattern) <= 0:
+        indexes = []
+        for index, start in enumerate(text):
+            indexes.append(index)
+        return indexes
+    if len(text) <= 0 or len(pattern) > len(text):
+        return None
+    else:
+        indexes = []
+        offset = 0
+        first = pattern[0]
+        for index, start in enumerate(text):
+            if start == first:
+                if find_index_help(text, pattern, index, offset, index) == index:
+                    indexes.append(index)
+        return indexes
 
 
 def test_string_algorithms(text, pattern):
