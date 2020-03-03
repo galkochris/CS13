@@ -9,6 +9,7 @@ class BinaryTreeNode(object):
         self.data = data
         self.left = None
         self.right = None
+        self.deleted = False
 
     def __repr__(self):
         """Return a string representation of this binary tree node."""
@@ -57,6 +58,7 @@ class BinarySearchTree(object):
         """Initialize this binary search tree and insert the given items."""
         self.root = None
         self.size = 0
+        self.items_deleted = 0
         if items is not None:
             for item in items:
                 self.insert(item)
@@ -84,7 +86,7 @@ class BinarySearchTree(object):
         # Find a node with the given item, if any
         node = self._find_node_recursive(item, self.root)
         # Return True if a node was found, or False
-        return node is not None
+        return node.deleted is False and node.data is not None
 
     def search(self, item):
         """Return an item in this binary search tree matching the given item,
@@ -94,7 +96,7 @@ class BinarySearchTree(object):
         # Find a node with the given item, if any
         node = self._find_node_recursive(item, self.root)
         # TODO: Return the node's data if found, or None
-        return node.data if node.data == item else None
+        return node.data if node.data == item and node.deleted is False else None
 
     def insert(self, item):
         """Insert the given item in order into this binary search tree.
@@ -107,6 +109,9 @@ class BinarySearchTree(object):
             # DONE: Increase the tree size
             self.size += 1
             return
+        #check if item was in set but deleted before, if it was reactivate it
+        if self._find_node_recursive(item, self.root).deleted is True:
+            self._find_node_recursive(item, self.root).deleted = False
         # Find the parent node of where the given item should be inserted
         parent = self._find_parent_node_recursive(item, self.root)
         # TODO: Check if the given item should be inserted left of parent node
@@ -229,6 +234,13 @@ class BinarySearchTree(object):
         # TODO: Use helper methods and break this algorithm down into 3 cases
         # based on how many children the node containing the given item has and
         # implement new helper methods for subtasks of the more complex cases
+        if item in self.contains(item):
+            node = self._find_node_recursive(item, self.root)
+            node.deleted = True
+            self.items_deleted += 1
+            return
+        else:
+            raise ValueError('Object not in dataset')
 
     def items_in_order(self):
         """Return an in-order list of all items in this binary search tree."""
@@ -249,7 +261,8 @@ class BinarySearchTree(object):
             self._traverse_in_order_recursive(node.left, visit)
 
         # TODO: Visit this node's data with given function
-        visit(node.data)
+        if node.deleted is False:
+            visit(node.data)
         # TODO: Traverse right subtree, if it exists
         if node.right is not None:
             self._traverse_in_order_recursive(node.right, visit)
@@ -276,7 +289,8 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # TODO: Visit this node's data with given function
-        visit(node.data)
+        if node.deleted is False:
+            visit(node.data)
         # TODO: Traverse left subtree, if it exists
         if node.left is not None:
             self._traverse_pre_order_recursive(node.left, visit)
@@ -312,7 +326,8 @@ class BinarySearchTree(object):
         if node.right is not None:
             self._traverse_post_order_recursive(node.right, visit)
         # TODO: Visit this node's data with given function
-        visit(node.data)
+        if node.deleted is False:        
+            visit(node.data)
 
     def _traverse_post_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative post-order traversal (DFS).
@@ -344,7 +359,8 @@ class BinarySearchTree(object):
             # TODO: Dequeue node at front of queue
             node = queue.dequeue()
             # TODO: Visit this node's data with given function
-            visit(node.data)
+            if node.deleted is False:
+                visit(node.data)
             # TODO: Enqueue this node's left child, if it exists
             if node.left is not None:
                 queue.enqueue(node.left)
