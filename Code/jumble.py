@@ -12,7 +12,10 @@ class Dejumbletron(object):
             for i in f:
                 i = i.strip().lower()
                 sort = ''.join(sorted(i))
-                sortedic[sort] = i
+                if sort in sortedic:
+                    sortedic[sort].append(i)
+                else:
+                    sortedic[sort] = [i]
         return sortedic
 
     def dejumbletron(self, words):
